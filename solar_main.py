@@ -7,6 +7,10 @@ from solar_vis import *
 from solar_model import *
 from solar_input import *
 
+# displaying the true size of the window, Windows only
+import ctypes
+ctypes.windll.user32.SetProcessDPIAware()
+
 perform_execution = False
 """Флаг цикличности выполнения расчёта"""
 

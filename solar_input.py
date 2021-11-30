@@ -27,7 +27,7 @@ def read_space_objects_data_from_file(input_filename):
             if len(line.strip()) == 0 or line[0] == '#':
                 continue  # пустые строки и строки-комментарии пропускаем
             object_type = line.split()[0].lower()
-            if object_type == "star":  # FIXME: do the same for planet
+            if object_type == "star":
                 star = Star()
                 parse_star_parameters(line, star)
                 objects.append(star)
@@ -104,25 +104,9 @@ def write_space_objects_data_to_file(output_filename, space_objects):
     with open(output_filename, 'w') as out_file:
         for obj in space_objects:
             print("%s %d %s %f %f %f %f %f" %
-                  (obj.__name__, obj.R, list(colors.keys)[list(colors.values).index(obj.color)], obj.m, obj.x, obj.y,
+                  (obj.type.capitalize(), obj.R, list(colors.keys())[list(colors.values()).index(obj.color)], obj.m, obj.x, obj.y,
                    obj.Vx, obj.Vy),
                   file=out_file)
-
-def log_space_objects(log_filename, space_objects):
-    """Сохраняет данные о космических объектах в данный момент.
-    Строки имеют следующий формат:
-    Star <x> <y> <Vx> <Vy>
-    Planet <x> <y> <Vx> <Vy>
-
-    logput_filename — имя входного файла
-    space_objects — список объектов планет и звёзд
-    """
-    with open(log_filename, 'a') as log_file:
-        for obj in space_objects:
-            print("%s %f %f %f %f" %
-                 (obj.name, obj.x, obj.y, obj.Vx, obj.Vy),
-                  file=log_file)
-        print(file=log_file)
 
 if __name__ == "__main__":
     print("This module is not for direct call!")
